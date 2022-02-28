@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, login
+from django.contrib.auth import logout
 
 # password for test user :- manisha$$$***000
 # Create your views here.
@@ -9,7 +10,7 @@ def index(request):
         return redirect('/login')
     return render(request=request,template_name='index.html')
 
-def login(request):
+def loginUser(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -17,11 +18,13 @@ def login(request):
         user = authenticate(username=username, password=password)
         if user is not None:
             # A backend authenticated the credentials
+            login(request,user)
             return redirect('/')
         else:
             # No backend authenticated the credentials
             return render(request=request,template_name='login.html')
     return render(request=request,template_name='login.html')
 
-def logout(request):
-    return render(request=request,template_name='index.html')
+def logoutUser(request):
+    logout(request)    
+    return redirect('/login')
