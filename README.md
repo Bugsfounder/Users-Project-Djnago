@@ -96,3 +96,57 @@ settings.py
 ```
 ALLOWED_HOSTS = ['mydomaimname.com','127.0.0.1', 'localhost']
 ```
+# Playing With Urls
+### Examples 
+```
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('articles/2003/', views.special_case_2003),
+    path('articles/<int:year>/', views.year_archive),
+    path('articles/<int:year>/<int:month>/', views.month_archive),
+    path('articles/<int:year>/<int:month>/<slug:slug>/', views.article_detail),
+]
+```
+#### In The Project's url.py --> if request comming with blank path then send it to the <|APPS|>.urls file to done next thing with the url
+urls.py # PROJECT
+```
+from django.contrib import admin
+from django.urls import path, include
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+   path('', include('home.urls')),
+]
+```
+#### In the App's urls.py
+urls.py # APP
+```
+from django.urls import path
+from home import views
+
+urlpatterns = [
+    path('', view=views.index, name = 'home' ),
+    path('/about', view=views.about, name='about'),
+    path('/contact', view=views.contact, name='contact'),
+    path('/services', view=views.services, name='services')
+]
+```
+# In Views.py --> Defining functions which we are call from app's urls.py path('', view=views.index, name = 'home' ), [view=views.index] int views.py file the index function has been use here
+```
+from django.shortcuts import render
+
+# Create your views here. 
+def index(request):
+    return render(request=request, template_name='index.html')
+    
+def about(request):
+    return render(request=request, template_name='about.html')
+
+def contact(request):
+    return render(request=request, template_name='contact.html')
+   
+def services(request):
+    return render(request=request, template_name='services.html')
+```
