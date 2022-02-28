@@ -5,6 +5,8 @@ from django.contrib.auth import authenticate
 # password for test user :- manisha$$$***000
 # Create your views here.
 def index(request):
+    if request.user.is_anonymous:
+        return redirect('/login')
     return render(request=request,template_name='index.html')
 
 def login(request):
