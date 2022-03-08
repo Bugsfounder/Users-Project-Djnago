@@ -15,15 +15,6 @@ python manage.py makemigrations
 ```
 python manage.py migrate
 ```
-## run server
-```
-python manage.py runserver
-```
-# Create an app as name home
-```
-python manage.py startapp home
-```
-
 # Create Super User
 ```
 python manage.py createsuperuser
@@ -33,6 +24,15 @@ Username (leave blank to use 'root'): ENTER_USERNAME_TO_SET
 Email address: ENTER_USERNAME
 Password:
 Password (again):
+```
+
+## run server
+```
+python manage.py runserver
+```
+# Create an app called home
+```
+python manage.py startapp home
 ```
 # Register App
 #### settings.py
@@ -50,8 +50,9 @@ class HomeConfig(AppConfig):
 ```
 'home.apps.HomeConfig'
 ```
-```
+
 # Application definition
+```
 INSTALLED_APPS = [
     .
     .
@@ -60,7 +61,6 @@ INSTALLED_APPS = [
     'home.apps.HomeConfig'
 ]
 ```
-
 # SETTING STATIC DIRECTORY AND TEMPLATES DIRECTORY
 
 Make sure that django.contrib.staticfiles is included in your INSTALLED_APPS.
@@ -121,7 +121,7 @@ urlpatterns = [
 ]
 ```
 #### In the App's urls.py
-urls.py # APP
+urls.py ### APP
 ```
 from django.urls import path
 from home import views
